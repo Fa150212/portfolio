@@ -8,6 +8,7 @@ const projectRoutes = require("./routes/projectRoutes");
 connectDB();
 
 const app = express();
+app.set("trust proxy", 1);
 
 /* =========================
    🔥 CORS CONFIG PRODUCTION READY
