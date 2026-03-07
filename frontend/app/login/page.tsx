@@ -29,16 +29,16 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   // 🔒 Protection auto si déjà connecté
-  useEffect(() => {
-    const adminInfo = localStorage.getItem("adminInfo");
-    const token = localStorage.getItem("token");
-    if (adminInfo) {
-      router.push("/dashboard");
-    }
-     if (token) {
-    router.replace("/dashboard");
-  }
-  }, []);
+  // useEffect(() => {
+  //   const adminInfo = localStorage.getItem("adminInfo");
+  //   const token = localStorage.getItem("token");
+  //   if (adminInfo) {
+  //     router.push("/dashboard");
+  //   }
+  //    if (token) {
+  //   router.replace("/dashboard");
+  // }
+  // }, []);
 
   const handleLogin = async (e: any) => {
     e.preventDefault();

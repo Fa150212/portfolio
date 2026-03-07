@@ -12,13 +12,16 @@ export default function Navbar() {
         </h1>
 
         <div className="flex gap-6">
+          <Link href="/" className="hover:text-blue-400 transition">
+            Accueil
+          </Link>
           <Link href="/about" className="hover:text-blue-400 transition">
             À propos
           </Link>
-          <Link href="#projects" className="hover:text-blue-400 transition">
+          <Link href="/projects" className="hover:text-blue-400 transition">
             Projets
           </Link>
-          <Link href="#contact" className="hover:text-blue-400 transition">
+          <Link href="/contact" className="hover:text-blue-400 transition">
             Contact
           </Link>
         </div>

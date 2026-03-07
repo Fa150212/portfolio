@@ -1,5 +1,26 @@
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { API_URL } from "../services/api";
 
 export default function DashboardAdmin() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/admin/profile`, {
+      credentials: "include",
+    }).then(res => {
+      if (!res.ok) {
+        router.replace("/login");
+      } else {
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  if (loading) return null;
+  
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">
@@ -33,41 +54,3 @@ export default function DashboardAdmin() {
     </div>
   );
 }
-
-// "use client";
-
-// import { useEffect } from "react";
-// import { useRouter } from "next/navigation";
-
-// export default function Dashboard() {
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     if (!token) {
-//       router.push("/login");
-//     }
-//   }, []);
-
-//   const logout = () => {
-//     localStorage.removeItem("token");
-//     router.push("/login");
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-950 text-white p-10">
-//       <div className="flex justify-between items-center">
-//         <h1 className="text-3xl font-bold">
-//           Dashboard Admin
-//         </h1>
-
-//         <button
-//           onClick={logout}
-//           className="bg-red-600 px-4 py-2 rounded"
-//         >
-//           Logout
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }

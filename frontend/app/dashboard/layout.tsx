@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { API_URL } from "../services/api";
 import Sidebar from "../components/Sidebar";
-// import Navbar from "../components/Navbar";
-// import Footer from "../components/Footer";
 
 export default function DashboardLayout({ children }: any) {
   const router = useRouter();
@@ -45,8 +43,6 @@ export default function DashboardLayout({ children }: any) {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-950 text-white">
-      {/* Navbar */}
-      {/* <Navbar /> */}
 
       <div className="flex flex-1">
         {/* Sidebar */}
@@ -55,8 +51,6 @@ export default function DashboardLayout({ children }: any) {
         {/* Contenu principal */}
         <main className="flex-1 flex flex-col p-6">
           {children}
-          {/* Footer en bas */}
-          {/* <Footer /> */}
         </main>
       </div>
     </div>
