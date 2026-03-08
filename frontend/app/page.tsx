@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -23,102 +24,158 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black text-gray-900 dark:text-white font-sans">
-      
-      {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center justify-center p-10 gap-10 md:gap-20">
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Bonjour, je suis Fatou
+
+      {/* ================= HERO ================= */}
+      <section className="py-24 px-6 md:px-20 flex flex-col-reverse md:flex-row items-center gap-16">
+        
+        {/* Texte */}
+        <div className="flex-1 space-y-6 text-center md:text-left">
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
+            Bonjour, je suis <span className="text-blue-600">Fatou</span>
           </h1>
-          <p className="mb-6 text-gray-700 dark:text-gray-300">
-            Développeuse web & designer, je crée des expériences numériques modernes et interactives.
+
+          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            Développeuse Web & Spécialiste en Communication Digitale.  
+            Je conçois des expériences numériques modernes, performantes et orientées résultats.
           </p>
-          <div className="flex justify-center md:justify-start gap-4">
-            <a
-              href="#contact"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-            >
-              Me contacter
-            </a>
+
+          {/* Boutons */}
+          <div className="flex flex-wrap justify-center md:justify-start gap-4">
             <a
               href="#projects"
-              className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-600 hover:text-white transition"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-lg transition hover:scale-105"
             >
               Voir mes projets
             </a>
+            <a
+              href="/cv.pdf"
+              className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-lg transition hover:scale-105"
+              download
+            >
+              Télécharger CV
+            </a>
           </div>
-          {/* Réseaux sociaux */}
-          <div className="flex justify-center md:justify-start gap-4 mt-6 text-2xl text-gray-700 dark:text-gray-300">
+
+          {/* Réseaux */}
+          <div className="flex justify-center md:justify-start gap-5 mt-6 text-2xl text-gray-600 dark:text-gray-300">
             <a href="https://github.com" target="_blank"><FaGithub /></a>
             <a href="https://linkedin.com" target="_blank"><FaLinkedin /></a>
             <a href="mailto:fg8002220@gmail.com"><FaEnvelope /></a>
           </div>
         </div>
 
-        <div className="flex-1">
-          <div className="flex-1 flex justify-center md:justify-start">
-              <Image
-                  src="/fgprofil.png"
-                  alt="Portrait"
-                  width={350}
-                  height={350}
-                  className="rounded-full shadow-2xl object-cover"
-              />
-           </div>
+        {/* Image */}
+        <div className="flex-1 flex justify-center">
+          <div className="relative">
+            <Image
+              src="/fgprofil.png"
+              alt="Fatou portrait"
+              width={340}
+              height={340}
+              className="rounded-full object-cover border-4 border-blue-500 shadow-2xl"
+            />
+            <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white px-4 py-2 rounded-full text-sm shadow-lg">
+              Disponible freelance
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Projets */}
-      <section id="projects" className="p-10 md:px-20 text-center md:text-left">
-        <h2 className="text-3xl font-bold mb-6">Mes projets</h2>
+      {/* ================= STATS ================= */}
+      <section className="py-16 px-6 md:px-20 bg-white dark:bg-zinc-900">
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <h3 className="text-4xl font-bold text-blue-600">10+</h3>
+            <p className="text-gray-600 dark:text-gray-300">Projets réalisés</p>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold text-blue-600">3+</h3>
+            <p className="text-gray-600 dark:text-gray-300">Années d’expérience</p>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold text-blue-600">100%</h3>
+            <p className="text-gray-600 dark:text-gray-300">Clients satisfaits</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= COMPÉTENCES RAPIDES ================= */}
+      <section className="py-16 px-6 md:px-20">
+        <h2 className="text-3xl font-bold mb-10 text-center">Compétences clés</h2>
+        <div className="flex flex-wrap justify-center gap-4">
+          {["Next.js", "MongoDB", "MariaDB", "Canva", "Photoshop", "Illustrator", "Pack Office"].map((skill) => (
+            <span
+              key={skill}
+              className="bg-blue-100 dark:bg-zinc-800 px-4 py-2 rounded-full text-sm font-medium"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= PROJETS ================= */}
+      <section id="projects" className="py-20 px-6 md:px-20 bg-zinc-100 dark:bg-zinc-900">
+        <h2 className="text-3xl font-bold mb-10 text-center">Mes projets</h2>
+
         {projects.length === 0 ? (
-          <p className="text-gray-700 dark:text-gray-300">Aucun projet pour le moment.</p>
+          <p className="text-center text-gray-600 dark:text-gray-300">
+            Chargement des projets...
+          </p>
         ) : (
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {projects.map((p: any) => (
               <div
                 key={p._id}
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition"
+                className="bg-white dark:bg-zinc-800 rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition"
               >
                 {p.image?.url && (
                   <img
                     src={p.image.url}
                     alt={p.title}
-                    className="rounded mb-2 w-full h-40 object-cover"
+                    className="w-full h-48 object-cover"
                   />
                 )}
-                <h3 className="font-semibold mb-1">{p.title}</h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-2">{p.description}</p>
-                {p.link && (
-                  <a
-                    href={p.link}
-                    target="_blank"
-                    className="text-blue-600 hover:underline text-sm"
-                  >
-                    Voir le projet
-                  </a>
-                )}
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-lg font-bold">{p.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                    {p.description}
+                  </p>
+
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      className="inline-block mt-2 text-blue-600 font-medium hover:underline"
+                    >
+                      Voir le projet →
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         )}
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="p-10 md:px-20 text-center md:text-left">
-        <h2 className="text-3xl font-bold mb-4">Contact</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Vous pouvez me contacter via email ou via mes réseaux sociaux.
+      {/* ================= CONTACT ================= */}
+      <section id="contact" className="py-20 px-6 md:px-20">
+        <h2 className="text-3xl font-bold mb-6 text-center">Contact</h2>
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-10">
+          Une idée de projet ? Discutons-en.
         </p>
-        <form className="flex flex-col gap-4 max-w-md mx-auto md:mx-0">
-          <input type="text" placeholder="Nom" className="p-3 rounded bg-gray-100 dark:bg-gray-800" />
-          <input type="email" placeholder="Email" className="p-3 rounded bg-gray-100 dark:bg-gray-800" />
-          <textarea placeholder="Message" className="p-3 rounded bg-gray-100 dark:bg-gray-800"></textarea>
+
+        <form className="max-w-xl mx-auto flex flex-col gap-4">
+          <input type="text" placeholder="Nom" className="p-3 rounded bg-gray-100 dark:bg-zinc-800" />
+          <input type="email" placeholder="Email" className="p-3 rounded bg-gray-100 dark:bg-zinc-800" />
+          <textarea placeholder="Message" rows={4} className="p-3 rounded bg-gray-100 dark:bg-zinc-800"></textarea>
           <button className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
-            Envoyer
+            Envoyer le message
           </button>
         </form>
       </section>
+
     </div>
   );
 }
