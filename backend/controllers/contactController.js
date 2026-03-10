@@ -1,4 +1,3 @@
-
 const Contact = require("../models/Contact");
 
 exports.createContact = async (req, res) => {
