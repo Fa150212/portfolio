@@ -38,7 +38,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-gray-900 px-4 pb-4 space-y-3 animate-fadeIn">
+        <div className="md:hidden bg-gray-900 px-3 pb-4 space-y-3 animate-fadeIn">
           <Link href="/" onClick={() => setOpen(false)} className="block hover:text-blue-400">Accueil</Link>
           <Link href="/about" onClick={() => setOpen(false)} className="block hover:text-blue-400">À propos</Link>
           <Link href="/projets" onClick={() => setOpen(false)} className="block hover:text-blue-400">Projets</Link>

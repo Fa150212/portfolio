@@ -46,7 +46,8 @@ export default function Sidebar({ admin, logout }: SidebarProps) {
           <nav className="flex flex-col gap-3 mt-6">
             <a href="/dashboard" className="hover:text-blue-400 transition">Dashboard</a>
             <a href="/dashboard/projects" className="hover:text-blue-400 transition">Projets</a>
-            <a href="/dashboar/messages" className="hover:text-blue-400 transition">Messages</a>
+            <a href="/dashboard/messages" className="hover:text-blue-400 transition">Messages</a>
+             <a href="/dashboard/blog" className="hover:text-blue-400 transition">blog</a>
           </nav>
         </div>
 

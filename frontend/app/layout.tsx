@@ -15,9 +15,47 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+// // export const metadata: Metadata = {
+// //   title: "Fatou Portfolio",
+// //   description: "Portfolio de Fatou GUEYE",
+// // };
+// export const metadata = {
+//   title: "Fatou Portfolio",
+//   description: "Portfolio de Fatou GUEYE",
+//   icons: {
+//     icon: "/icon.png",
+//   },
+// };
+export const metadata = {
   title: "Fatou Portfolio",
   description: "Portfolio de Fatou GUEYE",
+
+  icons: {
+    icon: "/icon.png",
+  },
+
+  openGraph: {
+    title: "Fatou Portfolio",
+    description: "Développeuse Web & Spécialiste en Communication Digitale",
+    url: "https://portfolio-blush-nine-63.vercel.app/",
+    siteName: "Fatou Portfolio",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Fatou Portfolio",
+    description: "Développeuse Web & Communication Digitale",
+    images: ["/preview.png"],
+  },
 };
 
 export default function RootLayout({
