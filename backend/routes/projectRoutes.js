@@ -1,13 +1,13 @@
+
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { protect } = require("../middleware/authMiddleware");
 const projectController = require("../controllers/projectController");
+const { protect } = require("../middleware/authMiddleware");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// CREATE
 router.post(
   "/",
   protect,
@@ -15,15 +15,12 @@ router.post(
   projectController.createProject
 );
 
-// GET ALL
-router.get("/", projectController.getProjects);
+router.get("/", projectController.getProjects); // ✅ D'ABORD
 
-// DELETE
+router.get("/:id", projectController.getProjectById); // ✅ ENSUITE
+
 router.delete("/:id", protect, projectController.deleteProject);
 
-// UPDATE
 router.put("/:id", protect, projectController.updateProject);
-
-
 
 module.exports = router;

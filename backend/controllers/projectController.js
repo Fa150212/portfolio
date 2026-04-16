@@ -1,3 +1,4 @@
+
 const Project = require("../models/Project");
 const cloudinary = require("../config/cloudinary");
 
@@ -6,11 +7,20 @@ const cloudinary = require("../config/cloudinary");
 // =============================
 exports.createProject = async (req, res) => {
   try {
-    const { title, description, link, technologies, status, featured } =
-      req.body;
+    const {
+      title,
+      description,
+      link,
+      technologies,
+      category,
+      status,
+      featured,
+    } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ message: "Le titre est obligatoire" });
+    if (!title || !category) {
+      return res.status(400).json({
+        message: "Titre et catégorie obligatoires",
+      });
     }
 
     let uploadedImage = {};
@@ -36,10 +46,9 @@ exports.createProject = async (req, res) => {
     const project = await Project.create({
       title,
       description,
-      link,
+      link: link || "", // ✅ important
       technologies: technologies ? technologies.split(",") : [],
-      status,
-      featured,
+      category,
       image: uploadedImage,
     });
 
@@ -59,6 +68,20 @@ exports.getProjects = async (req, res) => {
     res.json(projects);
   } catch (error) {
     console.error("GET PROJECTS ERROR:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+// GET ONE PROJECT
+exports.getProjectById = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+      return res.status(404).json({ message: "Projet introuvable" });
+    }
+
+    res.json(project);
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
@@ -104,3 +127,4 @@ exports.updateProject = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+

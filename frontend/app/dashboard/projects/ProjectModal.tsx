@@ -1,28 +1,19 @@
+
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  onSuccess: () => void;
-  apiUrl: string;
-}
-
-export default function ProjectModal({
-  isOpen,
-  onClose,
-  onSuccess,
-  apiUrl,
-}: Props) {
+export default function ProjectModal({ isOpen, onClose, onSuccess, apiUrl }: any) {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
+
   const [form, setForm] = useState({
     title: "",
     description: "",
     link: "",
+    category: "",
   });
+
   const [file, setFile] = useState<File | null>(null);
 
   if (!isOpen) return null;
@@ -35,187 +26,133 @@ export default function ProjectModal({
     }
   };
 
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData();
+  //   formData.append("title", form.title);
+  //   formData.append("description", form.description);
+  //   formData.append("link", form.link);
+  //   formData.append("category", form.category);
+
+  //   if (file) formData.append("image", file);
+
+  //   setLoading(true);
+
+  //   const res = await fetch(`${apiUrl}/projects`, {
+  //     method: "POST",
+  //     body: formData,
+  //     credentials: "include",
+  //   });
+
+  //   setLoading(false);
+
+  //   if (res.ok) {
+  //     setForm({ title: "", description: "", link: "", category: "" });
+  //     setFile(null);
+  //     setPreview(null);
+  //     onSuccess();
+  //     onClose();
+  //   } else {
+  //     alert("Erreur création");
+  //   }
+  // };
+
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (!file) return alert("Veuillez ajouter une image");
+  e.preventDefault();
 
-    setLoading(true);
+  const formData = new FormData();
+  formData.append("title", form.title);
+  formData.append("description", form.description);
+  formData.append("category", form.category);
 
-    const formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("description", form.description);
+  // ✅ AJOUT CONDITION
+  if (form.link && form.link.trim() !== "") {
     formData.append("link", form.link);
-    formData.append("image", file);
+  }
 
-    const res = await fetch(`${apiUrl}/projects`, {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
+  if (file) formData.append("image", file);
 
-    setLoading(false);
+  setLoading(true);
 
-    if (res.ok) {
-      setForm({ title: "", description: "", link: "" });
-      setFile(null);
-      setPreview(null);
-      onSuccess();
-      onClose();
-    } else {
-      alert("Erreur lors de la création");
-    }
-  };
+  const res = await fetch(`${apiUrl}/projects`, {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
 
+  setLoading(false);
+
+  if (res.ok) {
+    onSuccess();
+    onClose();
+  } else {
+    alert("Erreur création");
+  }
+};
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-    <div className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white p-6 rounded-2xl w-full max-w-md relative shadow-xl">
-      
-      <button
-        onClick={onClose}
-        className="absolute right-4 top-4 text-gray-500 hover:text-red-500"
-      >
-        <X size={20} />
-      </button>
+      <div className="bg-white p-6 rounded-xl w-full max-w-md">
 
-      <h2 className="text-xl font-bold mb-4">
-        Ajouter un projet
-      </h2>
+        <h2 className="font-bold mb-4">Ajouter projet</h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
-        {/* Image */}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="border border-zinc-300 dark:border-zinc-700 p-2 rounded bg-white dark:bg-zinc-800 text-black dark:text-white"
-        />
-
-        {preview && (
-          <img
-            src={preview}
-            alt="preview"
-            className="rounded-lg h-40 object-cover"
+          <input
+            type="text"
+            placeholder="Titre"
+            value={form.title}
+            onChange={(e) =>
+              setForm({ ...form, title: e.target.value })
+            }
+            required
+            className="border p-2"
           />
-        )}
 
-        {/* Nom */}
-        <input
-          type="text"
-          placeholder="Nom du projet"
-          value={form.title}
-          onChange={(e) =>
-            setForm({ ...form, title: e.target.value })
-          }
-          className="border border-zinc-300 dark:border-zinc-700 p-2 rounded bg-white dark:bg-zinc-800 text-black dark:text-white placeholder-gray-400"
-          required
-        />
+          <textarea
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) =>
+              setForm({ ...form, description: e.target.value })
+            }
+            className="border p-2"
+          />
 
-        {/* Description */}
-        <textarea
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
-          }
-          className="border border-zinc-300 dark:border-zinc-700 p-2 rounded bg-white dark:bg-zinc-800 text-black dark:text-white placeholder-gray-400"
-          required
-        />
+          <input
+            type="url"
+            placeholder="https://mon-site.com (optionnel)"
+            value={form.link}
+            onChange={(e) =>
+              setForm({ ...form, link: e.target.value })
+            }
+            className="border p-2"
+          />
 
-        {/* URL */}
-        <input
-          type="url"
-          placeholder="URL du projet"
-          value={form.link}
-          onChange={(e) =>
-            setForm({ ...form, link: e.target.value })
-          }
-          className="border border-zinc-300 dark:border-zinc-700 p-2 rounded bg-white dark:bg-zinc-800 text-black dark:text-white placeholder-gray-400"
-        />
+          <select
+            value={form.category}
+            onChange={(e) =>
+              setForm({ ...form, category: e.target.value })
+            }
+            required
+            className="border p-2"
+          >
+            <option value="">Choisir catégorie</option>
+            <option value="dev">💻 Développement</option>
+            <option value="design">🎨 Design</option>
+          </select>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-        >
-          {loading ? "Création..." : "Créer le projet"}
-        </button>
+          <input type="file" onChange={handleFileChange} />
 
-      </form>
+          {preview && (
+            <img src={preview} className="h-40 object-cover rounded" />
+          )}
+
+          <button className="bg-blue-600 text-white py-2 rounded">
+            {loading ? "..." : "Créer"}
+          </button>
+
+        </form>
+      </div>
     </div>
-  </div>
-  
-    // <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-    //   <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl w-full max-w-md relative shadow-xl">
-    //     <button
-    //       onClick={onClose}
-    //       className="absolute right-4 top-4 text-gray-400 hover:text-red-500"
-    //     >
-    //       <X size={20} />
-    //     </button>
-
-    //     <h2 className="text-xl font-bold mb-4">Ajouter un projet</h2>
-
-    //     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-    //       {/* Image */}
-    //       <input
-    //         type="file"
-    //         accept="image/*"
-    //         onChange={handleFileChange}
-    //         className="border p-2 rounded"
-    //       />
-
-    //       {preview && (
-    //         <img
-    //           src={preview}
-    //           alt="preview"
-    //           className="rounded-lg h-40 object-cover"
-    //         />
-    //       )}
-
-    //       {/* Nom */}
-    //       <input
-    //         type="text"
-    //         placeholder="Nom du projet"
-    //         value={form.title}
-    //         onChange={(e) =>
-    //           setForm({ ...form, title: e.target.value })
-    //         }
-    //         className="border p-2 rounded dark:bg-zinc-800 text-dark"
-    //         required
-    //       />
-
-    //       {/* Description */}
-    //       <textarea
-    //         placeholder="Description"
-    //         value={form.description}
-    //         onChange={(e) =>
-    //           setForm({ ...form, description: e.target.value })
-    //         }
-    //         className="border p-2 rounded dark:bg-zinc-800"
-    //         required
-    //       />
-
-    //       {/* URL */}
-    //       <input
-    //         type="url"
-    //         placeholder="URL du projet"
-    //         value={form.link}
-    //         onChange={(e) =>
-    //           setForm({ ...form, link: e.target.value })
-    //         }
-    //         className="border p-2 rounded dark:bg-zinc-800"
-    //       />
-
-    //       <button
-    //         type="submit"
-    //         disabled={loading}
-    //         className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-    //       >
-    //         {loading ? "Création..." : "Créer le projet"}
-    //       </button>
-    //     </form>
-    //   </div>
-    // </div>
   );
 }
