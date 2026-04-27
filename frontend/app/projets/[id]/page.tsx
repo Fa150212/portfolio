@@ -61,9 +61,9 @@ export default function ProjectDetailPage() {
         {/* IMAGE */}
         <div className="w-full">
           <img
-            src={project.image?.url || "/no-image.png"}
-            className="w-full h-[300px] md:h-[400px] object-cover rounded-2xl shadow-lg"
-          />
+              src={project.image?.url || "/no-image.png"}
+              className="w-full h-auto rounded-2xl shadow-lg object-contain"
+            />
         </div>
 
         {/* CONTENT */}
